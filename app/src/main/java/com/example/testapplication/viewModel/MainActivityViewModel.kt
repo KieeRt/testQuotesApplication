@@ -12,6 +12,7 @@ class MainActivityViewModel: ViewModel() {
     val quoteList: MutableLiveData<QuoteList> by lazy {
         MutableLiveData<QuoteList>()
     }
+    var tag : String = "new"
     fun getQuotes() {
         GlobalScope.launch {
             quoteList.postValue(QuoteRepository.getQuotes())
