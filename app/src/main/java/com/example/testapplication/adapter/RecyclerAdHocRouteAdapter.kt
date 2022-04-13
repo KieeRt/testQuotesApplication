@@ -24,6 +24,7 @@ class RecyclerAdHocRouteAdapter() : RecyclerView.Adapter<AdHocRoutesViewHolder>(
     }
 
     override fun onBindViewHolder(holder: AdHocRoutesViewHolder, position: Int) {
+        holder.itemView.findViewById<TextView>(R.id.quote).text = "prova assegnazione"
         holder.bind()
 
 
