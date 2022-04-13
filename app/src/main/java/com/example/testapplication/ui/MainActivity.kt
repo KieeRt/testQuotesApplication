@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.testapplication.R
 import com.example.testapplication.databinding.ActivityMainBinding
 import com.example.testapplication.model.QuoteList
@@ -21,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private  val binding get() = _binding!!
     private lateinit var  mainActivityViewModel : MainActivityViewModel
     val model : MainActivityViewModel by viewModels()
+
+
     var count : Int = 0
 
 
@@ -31,6 +38,11 @@ class MainActivity : AppCompatActivity() {
 
         // setContentView(R.layout.activity_main)
         init()
+
+       // val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        //val navController = navHostFragment.navController
+      //  val navController  = binding.navHostFragment.findNavController()
+
     }
 
 
@@ -44,13 +56,10 @@ class MainActivity : AppCompatActivity() {
     private fun initObserver() {
         val quoteListObserver = Observer<QuoteList>{
             if(count < it.results.size) {
-                binding.nameAuthor.text = it.results[count].author
-                binding.quote.text = it.results[count++].content
             }
             else{
                 count = 0
-                binding.nameAuthor.text = it.results[count].author
-                binding.quote.text = it.results[count++].content
+
 
             }
         }
@@ -69,12 +78,6 @@ class MainActivity : AppCompatActivity() {
     }
     private fun initListener(){
 
-        binding.getQuoteButton.setOnClickListener{
-            println("Login button was pressed:\n\n")
-            model.getQuotes()
-            println("AFTER PRESS 1\n")
 
-            println("AFTER PRESS 2\n")
-        }
     }
 }
