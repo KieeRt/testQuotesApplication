@@ -7,8 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.example.testapplication.R
+import com.example.testapplication.model.QuoteList
+import com.example.testapplication.viewModel.MainActivityViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,6 +37,11 @@ class firstFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        init()
+
+
+
     }
 
     override fun onCreateView(
@@ -63,5 +74,31 @@ class firstFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    fun init(){
+        initView()
+        initData()
+        initObserver()
+        initListener()
+    }
+
+    private fun initObserver() {
+
+
+    }
+
+
+    private fun initView(){
+       // _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+    }
+    private fun initData(){
+
+
+    }
+    private fun initListener(){
+
+
     }
 }

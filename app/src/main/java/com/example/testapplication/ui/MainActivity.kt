@@ -73,7 +73,9 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun initData(){
-        mainActivityViewModel = MainActivityViewModel()
+        println("MainActivity tag: ${model.tag}")
+        model.tag = "main activity"
+        println("MainActivity tag: ${model.tag}")
 
     }
     private fun initListener(){

@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.example.testapplication.R
+import com.example.testapplication.model.QuoteList
+import com.example.testapplication.viewModel.MainActivityViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +27,7 @@ class secondFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    val model : MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +46,16 @@ class secondFragment : Fragment() {
         view.findViewById<TextView>(R.id.textview2).setOnClickListener(){
             Navigation.findNavController(view).navigate(R.id.action_second_to_firstFragment)
         }
+
+        init()
         return view
+    }
+
+    fun init(){
+        initView()
+        initData()
+        initObserver()
+        initListener()
     }
 
     companion object {
@@ -62,5 +76,30 @@ class secondFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun initObserver() {
+        val quoteListObserver = Observer<QuoteList>{
+            println("lifedata was updated")
+
+        }
+        model.quoteList.observe(viewLifecycleOwner, quoteListObserver)
+
+    }
+
+
+    private fun initView(){
+        // _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+    }
+    private fun initData(){
+        //mainActivityViewModel = MainActivityViewModel()
+        model.getQuotes()
+
+
+    }
+    private fun initListener(){
+
+
     }
 }
