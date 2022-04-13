@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
+import com.example.testapplication.adapter.RecyclerAdHocRouteAdapter
 import com.example.testapplication.model.QuoteList
 import com.example.testapplication.viewModel.MainActivityViewModel
 
@@ -28,6 +30,7 @@ class secondFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     val model : MainActivityViewModel by viewModels()
+    lateinit var  recyclerView : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +46,10 @@ class secondFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_second, container, false)
-        view.findViewById<TextView>(R.id.textview2).setOnClickListener(){
-            Navigation.findNavController(view).navigate(R.id.action_second_to_firstFragment)
-        }
+        recyclerView = view.findViewById(R.id.recycleView)
 
         init()
+
         return view
     }
 
@@ -94,12 +96,12 @@ class secondFragment : Fragment() {
     }
     private fun initData(){
         //mainActivityViewModel = MainActivityViewModel()
-        model.getQuotes()
+        //model.getQuotes()
 
 
     }
     private fun initListener(){
-
+        recyclerView.adapter = RecyclerAdHocRouteAdapter()
 
     }
 }
