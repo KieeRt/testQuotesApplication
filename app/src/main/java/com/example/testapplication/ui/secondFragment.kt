@@ -9,12 +9,15 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
+import com.example.testapplication.adapter.MyAdapter
 import com.example.testapplication.adapter.RecyclerAdHocRouteAdapter
 import com.example.testapplication.model.QuoteList
+import com.example.testapplication.model.User
 import com.example.testapplication.viewModel.MainActivityViewModel
-
+import com.example.testapplication.model.Result
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -31,6 +34,38 @@ class secondFragment : Fragment() {
     private var param2: String? = null
     val model : MainActivityViewModel by viewModels()
     lateinit var  recyclerView : RecyclerView
+    lateinit var _view : View
+    val list2 = listOf(
+        Result(
+            "2xpHvSOQMD",
+            "Helmut Schmidt",
+            "helmut-schmidt",
+            "The biggest room in the world is room for improvement.",
+            "2021-06-18",
+            "2021-06-18",
+            54,
+            listOf<String>(
+                "famous-quotes",
+                "inspirational"
+            )
+
+        ),
+        Result(
+            "XNLGqepInX",
+            "Helmut Schmidt",
+            "helmut-schmidt",
+            "The biggest room in the world is your mother ASS for improvement.",
+            "2021-06-18",
+            "2021-06-18",
+            54,
+            listOf<String>(
+                "famous-quotes",
+                "inspirational"
+            )
+
+        )
+
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,12 +80,12 @@ class secondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_second, container, false)
-        recyclerView = view.findViewById(R.id.recycleView)
+        _view =  inflater.inflate(R.layout.fragment_second, container, false)
+
 
         init()
 
-        return view
+        return _view
     }
 
     fun init(){
@@ -83,6 +118,10 @@ class secondFragment : Fragment() {
     private fun initObserver() {
         val quoteListObserver = Observer<QuoteList>{
             println("lifedata was updated")
+            val myAdapter = MyAdapter(requireContext(), model.quoteList.value!!.results)
+            recyclerView.adapter = myAdapter
+            recyclerView.layoutManager = LinearLayoutManager(context)
+
 
         }
         model.quoteList.observe(viewLifecycleOwner, quoteListObserver)
@@ -91,17 +130,21 @@ class secondFragment : Fragment() {
 
 
     private fun initView(){
+        recyclerView = _view.findViewById(R.id.recycleView)
+
+
+
         // _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
     }
     private fun initData(){
         //mainActivityViewModel = MainActivityViewModel()
-        //model.getQuotes()
+        model.getQuotes()
 
 
     }
     private fun initListener(){
-        recyclerView.adapter = RecyclerAdHocRouteAdapter()
+       // recyclerView.adapter = RecyclerAdHocRouteAdapter()
 
     }
 }

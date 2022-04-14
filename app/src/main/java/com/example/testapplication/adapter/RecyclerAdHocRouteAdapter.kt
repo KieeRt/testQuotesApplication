@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
-import com.example.testapplication.databinding.ActivityMainBinding
+
 import com.example.testapplication.model.QuoteList
 import org.w3c.dom.Text
 
