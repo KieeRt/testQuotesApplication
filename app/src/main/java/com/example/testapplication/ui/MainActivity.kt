@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -24,12 +25,7 @@ import kotlinx.coroutines.runBlocking
 class MainActivity : AppCompatActivity() {
     private  var  _binding: ActivityMainBinding? = null
     private  val binding get() = _binding!!
-    private lateinit var  mainActivityViewModel : MainActivityViewModel
-    val model : MainActivityViewModel by viewModels()
-
-
-    var count : Int = 0
-
+    private lateinit var model: MainActivityViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         // setContentView(R.layout.activity_main)
         init()
+
 
        // val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         //val navController = navHostFragment.navController
@@ -54,14 +51,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObserver() {
+
         val quoteListObserver = Observer<QuoteList>{
-            if(count < it.results.size) {
-            }
-            else{
-                count = 0
-
-
-            }
         }
         model.quoteList.observe(this, quoteListObserver)
 
@@ -73,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun initData(){
+        model = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         println("MainActivity tag: ${model.tag}")
         model.tag = "main activity"
         println("MainActivity tag: ${model.tag}")

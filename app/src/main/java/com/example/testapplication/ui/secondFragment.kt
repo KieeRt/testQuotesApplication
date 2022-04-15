@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,40 +33,10 @@ class secondFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    val model : MainActivityViewModel by viewModels()
-    lateinit var  recyclerView : RecyclerView
-    lateinit var _view : View
-    val list2 = listOf(
-        Result(
-            "2xpHvSOQMD",
-            "Helmut Schmidt",
-            "helmut-schmidt",
-            "The biggest room in the world is room for improvement.",
-            "2021-06-18",
-            "2021-06-18",
-            54,
-            listOf<String>(
-                "famous-quotes",
-                "inspirational"
-            )
+    private lateinit var  recyclerView : RecyclerView
+    private lateinit var model: MainActivityViewModel
+    private lateinit var _view : View
 
-        ),
-        Result(
-            "XNLGqepInX",
-            "Helmut Schmidt",
-            "helmut-schmidt",
-            "The biggest room in the world is your mother ASS for improvement.",
-            "2021-06-18",
-            "2021-06-18",
-            54,
-            listOf<String>(
-                "famous-quotes",
-                "inspirational"
-            )
-
-        )
-
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,18 +44,15 @@ class secondFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        init()
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _view =  inflater.inflate(R.layout.fragment_second, container, false)
-
-
-        init()
-
         return _view
     }
 
@@ -115,6 +83,11 @@ class secondFragment : Fragment() {
             }
     }
 
+    private fun initView(){
+        recyclerView = _view.findViewById(R.id.recycleView)
+
+    }
+
     private fun initObserver() {
         val quoteListObserver = Observer<QuoteList>{
             println("lifedata was updated")
@@ -129,22 +102,13 @@ class secondFragment : Fragment() {
     }
 
 
-    private fun initView(){
-        recyclerView = _view.findViewById(R.id.recycleView)
 
-
-
-        // _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-    }
     private fun initData(){
-        //mainActivityViewModel = MainActivityViewModel()
+        model = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
         model.getQuotes()
-
 
     }
     private fun initListener(){
-       // recyclerView.adapter = RecyclerAdHocRouteAdapter()
 
     }
 }
