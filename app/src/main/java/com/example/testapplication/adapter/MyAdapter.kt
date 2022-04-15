@@ -6,22 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
 import com.example.testapplication.model.Result
 
-class MyAdapter(val context: Context, private val list: List<Result>): RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapter(val context: Context, private val list: List<Result>, val listener: View.OnClickListener): RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
-    class MyViewHolder(itemView: View, val list: List<Result>) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View, private val list: List<Result>) : RecyclerView.ViewHolder(itemView) {
         // sto dentro una riga e recupero il riferimento ad ogni singolo elemento
 
-        var nameAuthor = itemView.findViewById<TextView>(R.id.nameAuthor2)
-        var quote  = itemView.findViewById<TextView>(R.id.quote2)
-        var tags = itemView.findViewById<TextView>(R.id.tags)
-        var icon_item = itemView.findViewById<ImageView>(R.id.icon_item)
-        var data_publish = itemView.findViewById<TextView>(R.id.data_publish)
-
-
+        private var nameAuthor = itemView.findViewById<TextView>(R.id.nameAuthor2)
+        private var quote: TextView = itemView.findViewById<TextView>(R.id.quote2)
+        private var tags: TextView = itemView.findViewById<TextView>(R.id.tags)
+        private var icon_item: ImageView = itemView.findViewById<ImageView>(R.id.icon_item)
+        private var data_publish: TextView = itemView.findViewById<TextView>(R.id.data_publish)
         fun bind(position: Int) {
             itemView.setBackgroundColor(R.color.purple_700.toInt())
             nameAuthor.text = list[position].author
@@ -30,6 +30,7 @@ class MyAdapter(val context: Context, private val list: List<Result>): RecyclerV
             data_publish.text = list[position].dateAdded
             icon_item.setOnClickListener(View.OnClickListener {
                 if (icon_item.colorFilter == null) {
+
                     icon_item.setColorFilter(R.color.red)
                 }else{
                     icon_item.setColorFilter(null)
