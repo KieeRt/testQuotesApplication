@@ -5,16 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
 import com.example.testapplication.adapter.MyAdapter
-import com.example.testapplication.adapter.RecyclerAdHocRouteAdapter
 import com.example.testapplication.model.QuoteList
 import com.example.testapplication.model.User
 import com.example.testapplication.viewModel.MainActivityViewModel
@@ -44,7 +40,6 @@ class secondFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        init()
 
     }
 
@@ -53,6 +48,8 @@ class secondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _view =  inflater.inflate(R.layout.fragment_second, container, false)
+        init()
+
         return _view
     }
 
@@ -89,18 +86,44 @@ class secondFragment : Fragment() {
     }
 
     private fun initObserver() {
+        val listener = View.OnClickListener {
+            val tag: String =  view?.getTag(R.string.id_saved_item).toString()
+            println("InitObserve valore di tag:$tag")
+            val res: Result = model.quoteList.value?.results?.find {
+                it._id == tag
+            }!!
+            if(res.length != 0){
+                model.saveQuote(res)
+            }
+
+
+        }
+
         val quoteListObserver = Observer<QuoteList>{
             println("lifedata was updated")
-            val myAdapter = MyAdapter(requireContext(), model.quoteList.value!!.results)
+            val myAdapter = MyAdapter(requireContext(), model.quoteList.value!!.results, listener)
             recyclerView.adapter = myAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
 
 
         }
+
+
         model.quoteList.observe(viewLifecycleOwner, quoteListObserver)
 
     }
 
+    class myOnClickListener() : View.OnClickListener{
+        private lateinit var item: Result
+        override fun onClick(view: View?) {
+            val tag: String =  view?.getTag(R.string.id_saved_item).toString()
+
+        }
+        fun saveResult(res: Result){
+            item = res
+        }
+
+    }
 
 
     private fun initData(){

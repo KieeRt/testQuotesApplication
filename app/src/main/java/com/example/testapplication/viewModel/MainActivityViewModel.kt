@@ -13,7 +13,7 @@ class MainActivityViewModel: ViewModel() {
     val quoteList: MutableLiveData<QuoteList> by lazy {
         MutableLiveData<QuoteList>()
     }
-    var quoteSaved: MutableLiveData<List<Result>> = MutableLiveData<List<Result>>()
+    private var quoteSaved: MutableLiveData<List<Result>> = MutableLiveData<List<Result>>()
     init {
         println("Istanzio nuova classe di viewModel dentro ")
     }
