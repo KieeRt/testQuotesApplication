@@ -30,13 +30,9 @@ class savedQuotetFragment : Fragment() {
     private lateinit var model: MainActivityViewModel
     private lateinit var _view : View
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,31 +75,6 @@ class savedQuotetFragment : Fragment() {
     }
 
     private fun initObserver() {
-        val listener = View.OnClickListener { it ->
-
-            // colored and uncolored icon
-            if(it is ImageView){
-                if(it.colorFilter == null) it.setColorFilter(R.color.red)
-                else it.colorFilter = null
-            }
-            // get information about item that was clicked
-            val tag: String =  it?.getTag(R.string.id_saved_item).toString()
-
-            // search clicked item inside my list
-            var res: Result? = null
-            res =  model.getQuoteList().value?.results?.find {
-                it._id == tag
-            }
-
-            // if the search was successful add item to my savedQuote list
-            if (res != null) {
-                if(res.length != 0){
-                    model.saveQuote(res)
-                }
-            }
-
-
-        }
 
         if(model.getSavedQuotes().value != null ) {
             val myAdapter = RecyclerQuoteListNoSaveAdapter(requireContext(), model.getSavedQuotes().value!!)
@@ -121,7 +92,6 @@ class savedQuotetFragment : Fragment() {
         model.getSavedQuotes().observe(viewLifecycleOwner, quoteListObserver)
 
     }
-
 
 
 

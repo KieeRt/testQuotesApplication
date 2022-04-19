@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
 import com.example.testapplication.adapter.RecyclerQuoteListAdapter
+import com.example.testapplication.databinding.ActivityMainBinding
 import com.example.testapplication.model.QuoteList
 import com.example.testapplication.viewModel.MainActivityViewModel
 import com.example.testapplication.model.Result
@@ -36,6 +37,8 @@ class homeQuoteFragment : Fragment() {
     private lateinit var  recyclerView : RecyclerView
     private lateinit var model: MainActivityViewModel
     private lateinit var _view : View
+    private  var  _binding: ActivityMainBinding? = null
+    private  val binding get() = _binding!!
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,7 +121,6 @@ class homeQuoteFragment : Fragment() {
         }
 
         val quoteListObserver = Observer<QuoteList>{
-            println("lifedata was updated")
             val myAdapter = RecyclerQuoteListAdapter(requireContext(), model.getQuoteList().value!!.results, listener)
             recyclerView.adapter = myAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
