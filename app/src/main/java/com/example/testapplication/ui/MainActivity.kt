@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         init()
     }
 
-
     fun init(){
         initView()
         initData()
