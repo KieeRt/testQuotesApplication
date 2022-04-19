@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
-import com.example.testapplication.adapter.MyAdapter
+import com.example.testapplication.adapter.RecyclerQuoteListAdapter
 import com.example.testapplication.model.QuoteList
 import com.example.testapplication.viewModel.MainActivityViewModel
 import com.example.testapplication.model.Result
@@ -93,6 +92,7 @@ class homeQuoteFragment : Fragment() {
 
 
         val listener = View.OnClickListener { it ->
+
             // colored and uncolored icon
             if(it is ImageView){
                 if(it.colorFilter == null) it.setColorFilter(R.color.red)
@@ -119,7 +119,7 @@ class homeQuoteFragment : Fragment() {
 
         val quoteListObserver = Observer<QuoteList>{
             println("lifedata was updated")
-            val myAdapter = MyAdapter(requireContext(), model.getQuoteList().value!!.results, listener)
+            val myAdapter = RecyclerQuoteListAdapter(requireContext(), model.getQuoteList().value!!.results, listener)
             recyclerView.adapter = myAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
 

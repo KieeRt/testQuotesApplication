@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
 import com.example.testapplication.model.Result
 
-class MyAdapter(val context: Context, private val list: List<Result>, val listener: View.OnClickListener): RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class RecyclerQuoteListAdapter(val context: Context, private val list: List<Result>, val listener: View.OnClickListener): RecyclerView.Adapter<RecyclerQuoteListAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View, private val list: List<Result>, private val listener: View.OnClickListener) : RecyclerView.ViewHolder(itemView) {
         // sto dentro una riga e recupero il riferimento ad ogni singolo elemento
