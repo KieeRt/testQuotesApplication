@@ -28,31 +28,24 @@ class MyAdapter(val context: Context, private val list: List<Result>, val listen
             setObserver(position)
         }
 
-        fun setStyle(){
+        private fun setStyle(){
             itemView.setBackgroundColor(R.color.purple_700.toInt())
         }
 
-        fun setData(position: Int){
+        private fun setData(position: Int){
             nameAuthor.text = list[position].author
             quote.text = list[position].content
             tags.text = list[position].tags.joinToString(separator = " ") { "#$it" }
             data_publish.text = list[position].dateAdded
         }
 
-        fun setObserver(position: Int) {
-            /*
-            icon_item.setOnClickListener(View.OnClickListener {
-                if (icon_item.colorFilter == null) {
-                    icon_item.setOnClickListener(listener)
-                    icon_item.setTag(R.string.id_saved_item, list[position]._id)
-                    icon_item.setColorFilter(R.color.red)
-                }else{
-                    icon_item.setColorFilter(null)
-                }
+        private fun setObserver(position: Int) {
 
-            })*/
             icon_item.setOnClickListener(listener)
             icon_item.setTag(R.string.id_saved_item, list[position]._id)
+            val tag: String =  icon_item.getTag(R.string.id_saved_item).toString()
+            println("InitObserve valore di ${icon_item.id} tag inside:$tag")
+
         }
 
 
