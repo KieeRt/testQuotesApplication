@@ -26,5 +26,12 @@
         <action
             android:id="@+id/action_second_to_firstFragment"
             app:destination="@id/firstFragment" />
+        <action
+            android:id="@+id/action_second_to_savedQuotetFragment"
+            app:destination="@id/savedQuotetFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/savedQuotetFragment"
+        android:name="com.example.testapplication.ui.savedQuotetFragment"
+        android:label="savedQuotetFragment" />
 </navigation>

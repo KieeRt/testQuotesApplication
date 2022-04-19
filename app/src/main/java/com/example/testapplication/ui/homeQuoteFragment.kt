@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
@@ -15,6 +17,8 @@ import com.example.testapplication.adapter.MyAdapter
 import com.example.testapplication.model.QuoteList
 import com.example.testapplication.viewModel.MainActivityViewModel
 import com.example.testapplication.model.Result
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -26,6 +30,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class homeQuoteFragment : Fragment() {
+    // TODO: Rename and change types of parameters
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -80,9 +85,13 @@ class homeQuoteFragment : Fragment() {
     private fun initView(){
         recyclerView = _view.findViewById(R.id.recycleView)
 
+
+
     }
 
     private fun initObserver() {
+
+
         val listener = View.OnClickListener { it ->
             // colored and uncolored icon
             if(it is ImageView){
@@ -94,7 +103,7 @@ class homeQuoteFragment : Fragment() {
 
             // search clicked item inside my list
             var res: Result? = null
-            res =  model.quoteList.value?.results?.find {
+            res =  model.getQuoteList().value?.results?.find {
                 it._id == tag
             }
 
@@ -110,7 +119,7 @@ class homeQuoteFragment : Fragment() {
 
         val quoteListObserver = Observer<QuoteList>{
             println("lifedata was updated")
-            val myAdapter = MyAdapter(requireContext(), model.quoteList.value!!.results, listener)
+            val myAdapter = MyAdapter(requireContext(), model.getQuoteList().value!!.results, listener)
             recyclerView.adapter = myAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -118,29 +127,24 @@ class homeQuoteFragment : Fragment() {
         }
 
 
-        model.quoteList.observe(viewLifecycleOwner, quoteListObserver)
+        model.getQuoteList().observe(viewLifecycleOwner, quoteListObserver)
+
+
 
     }
 
-    class myOnClickListener() : View.OnClickListener{
-        private lateinit var item: Result
-        override fun onClick(view: View?) {
-            val tag: String =  view?.getTag(R.string.id_saved_item).toString()
-
-        }
-        fun saveResult(res: Result){
-            item = res
-        }
-
-    }
 
 
     private fun initData(){
         model = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
         model.getQuotes()
 
+
     }
     private fun initListener(){
 
+        _view.findViewById<FloatingActionButton>(R.id.floating_action_button).setOnClickListener(){
+            Navigation.findNavController(_view).navigate(R.id.action_second_to_savedQuotetFragment)
+        }
     }
 }
