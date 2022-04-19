@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
 import com.example.testapplication.adapter.RecyclerQuoteListAdapter
-import com.example.testapplication.databinding.ActivityMainBinding
+import com.example.testapplication.databinding.FragmentHomequoteBinding
 import com.example.testapplication.model.QuoteList
 import com.example.testapplication.viewModel.MainActivityViewModel
 import com.example.testapplication.model.Result
@@ -37,7 +38,7 @@ class homeQuoteFragment : Fragment() {
     private lateinit var  recyclerView : RecyclerView
     private lateinit var model: MainActivityViewModel
     private lateinit var _view : View
-    private  var  _binding: ActivityMainBinding? = null
+    private  var  _binding: FragmentHomequoteBinding? = null
     private  val binding get() = _binding!!
 
 
@@ -85,9 +86,8 @@ class homeQuoteFragment : Fragment() {
     }
 
     private fun initView(){
+       // _binding = DataBindingUtil.setContentView<FragmentHomequoteBinding>(requireActivity(), R.layout.fragment_homequote)
         recyclerView = _view.findViewById(R.id.recycleView)
-
-
 
     }
 
@@ -127,14 +127,9 @@ class homeQuoteFragment : Fragment() {
 
 
         }
-
-
         model.getQuoteList().observe(viewLifecycleOwner, quoteListObserver)
 
-
-
     }
-
 
 
     private fun initData(){
@@ -144,7 +139,6 @@ class homeQuoteFragment : Fragment() {
 
     }
     private fun initListener(){
-
         _view.findViewById<FloatingActionButton>(R.id.floating_action_button).setOnClickListener(){
             Navigation.findNavController(_view).navigate(R.id.action_second_to_savedQuotetFragment)
         }

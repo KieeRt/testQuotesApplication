@@ -88,8 +88,7 @@ class firstFragment : Fragment() {
 
 
     private fun initView(){
-       // _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+        //_binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
     }
