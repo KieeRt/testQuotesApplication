@@ -10,10 +10,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivityViewModel: ViewModel() {
-    val quoteList: MutableLiveData<QuoteList> by lazy {
+
+    private val quoteList: MutableLiveData<QuoteList> by lazy {
         MutableLiveData<QuoteList>()
     }
-    val error: String = "Lista vuota"
     private var quoteSaved: MutableLiveData<List<Result>> = MutableLiveData<List<Result>>()
     init {
         println("Istanzio nuova classe di viewModel dentro ")
@@ -27,7 +27,17 @@ class MainActivityViewModel: ViewModel() {
     fun saveQuote(quote: Result){
         quoteSaved.value = quoteSaved.value?.plus(quote) ?: listOf(quote)
     }
+    fun removeQuoteFromSaved(quote: Result){
+        quoteSaved.value = quoteSaved.value?.minus(quote)
+    }
 
+    fun getSavedQuotes(): MutableLiveData<List<Result>> {
+        return quoteSaved
+    }
 
+    @JvmName("getQuoteList1")
+    fun getQuoteList(): MutableLiveData<QuoteList>{
+        return quoteList
+    }
 
 }

@@ -30,7 +30,7 @@ class firstFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    private lateinit var _view : View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -38,7 +38,7 @@ class firstFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        init()
+
 
 
 
@@ -49,11 +49,9 @@ class firstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_first, container, false)
-        view.findViewById<Button>(R.id.button_login).setOnClickListener(){
-            Navigation.findNavController(view).navigate(R.id.action_firstFragment_to_second)
-        }
-        return view
+        _view =  inflater.inflate(R.layout.fragment_first, container, false)
+        init()
+        return _view
     }
 
     companion object {
@@ -92,13 +90,17 @@ class firstFragment : Fragment() {
     private fun initView(){
        // _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+
+
     }
     private fun initData(){
 
 
     }
     private fun initListener(){
-
+        _view.findViewById<Button>(R.id.button_login).setOnClickListener(){
+            Navigation.findNavController(_view).navigate(R.id.action_firstFragment_to_second)
+        }
 
     }
 }

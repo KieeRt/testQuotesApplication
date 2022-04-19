@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         val quoteListObserver = Observer<QuoteList>{
         }
-        model.quoteList.observe(this, quoteListObserver)
+        model.getQuoteList().observe(this, quoteListObserver)
 
     }
 
