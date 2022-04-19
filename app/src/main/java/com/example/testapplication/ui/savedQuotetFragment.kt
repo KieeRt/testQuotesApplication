@@ -5,16 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
-import com.example.testapplication.adapter.MyAdapter
-import com.example.testapplication.model.QuoteList
+import com.example.testapplication.adapter.RecyclerQuoteListAdapter
+import com.example.testapplication.adapter.RecyclerQuoteListNoSaveAdapter
 import com.example.testapplication.viewModel.MainActivityViewModel
 import com.example.testapplication.model.Result
 // TODO: Rename parameter arguments, choose names that match
@@ -82,6 +80,7 @@ class savedQuotetFragment : Fragment() {
 
     private fun initObserver() {
         val listener = View.OnClickListener { it ->
+
             // colored and uncolored icon
             if(it is ImageView){
                 if(it.colorFilter == null) it.setColorFilter(R.color.red)
@@ -107,14 +106,14 @@ class savedQuotetFragment : Fragment() {
         }
 
         if(model.getSavedQuotes().value != null ) {
-            val myAdapter = MyAdapter(requireContext(), model.getSavedQuotes().value!!, listener)
+            val myAdapter = RecyclerQuoteListNoSaveAdapter(requireContext(), model.getSavedQuotes().value!!)
             recyclerView.adapter = myAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
         }
 
         val quoteListObserver = Observer<List<Result>>{
             println("lifedata was updated")
-            val myAdapter = MyAdapter(requireContext(), model.getSavedQuotes().value!!, listener)
+            val myAdapter = RecyclerQuoteListNoSaveAdapter(requireContext(), model.getSavedQuotes().value!!)
             recyclerView.adapter = myAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
         }
@@ -128,7 +127,6 @@ class savedQuotetFragment : Fragment() {
 
     private fun initData(){
         model = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
-
 
     }
     private fun initListener(){}
