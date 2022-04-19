@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testapplication.R
 import com.example.testapplication.adapter.MyAdapter
 import com.example.testapplication.model.QuoteList
-import com.example.testapplication.model.User
 import com.example.testapplication.viewModel.MainActivityViewModel
 import com.example.testapplication.model.Result
 // TODO: Rename parameter arguments, choose names that match
@@ -22,10 +22,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [secondFragment.newInstance] factory method to
+ * Use the [homeQuoteFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class secondFragment : Fragment() {
+class homeQuoteFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -36,10 +36,7 @@ class secondFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
 
     }
 
@@ -47,13 +44,13 @@ class secondFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _view =  inflater.inflate(R.layout.fragment_second, container, false)
+        _view =  inflater.inflate(R.layout.fragment_homequote, container, false)
         init()
 
         return _view
     }
 
-    fun init(){
+    private fun init(){
         initView()
         initData()
         initObserver()
@@ -72,7 +69,7 @@ class secondFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            secondFragment().apply {
+            homeQuoteFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -86,14 +83,26 @@ class secondFragment : Fragment() {
     }
 
     private fun initObserver() {
-        val listener = View.OnClickListener {
-            val tag: String =  view?.getTag(R.string.id_saved_item).toString()
-            println("InitObserve valore di tag:$tag")
-            val res: Result = model.quoteList.value?.results?.find {
+        val listener = View.OnClickListener { it ->
+            // colored and uncolored icon
+            if(it is ImageView){
+                if(it.colorFilter == null) it.setColorFilter(R.color.red)
+                else it.colorFilter = null
+            }
+            // get information about item that was clicked
+            val tag: String =  it?.getTag(R.string.id_saved_item).toString()
+
+            // search clicked item inside my list
+            var res: Result? = null
+            res =  model.quoteList.value?.results?.find {
                 it._id == tag
-            }!!
-            if(res.length != 0){
-                model.saveQuote(res)
+            }
+
+            // if the search was successful add item to my savedQuote list
+            if (res != null) {
+                if(res.length != 0){
+                    model.saveQuote(res)
+                }
             }
 
 

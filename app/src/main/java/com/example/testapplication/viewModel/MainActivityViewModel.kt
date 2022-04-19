@@ -13,6 +13,7 @@ class MainActivityViewModel: ViewModel() {
     val quoteList: MutableLiveData<QuoteList> by lazy {
         MutableLiveData<QuoteList>()
     }
+    val error: String = "Lista vuota"
     private var quoteSaved: MutableLiveData<List<Result>> = MutableLiveData<List<Result>>()
     init {
         println("Istanzio nuova classe di viewModel dentro ")
@@ -24,14 +25,9 @@ class MainActivityViewModel: ViewModel() {
         }
     }
     fun saveQuote(quote: Result){
-        println("quoteSaved list has: ${quoteSaved.value?.size}")
-        for(res: Result in quoteSaved.value!!){
-            res.print()
-        }
-
-        quoteSaved.value!!.plus(quote)
-
-
-
+        quoteSaved.value = quoteSaved.value?.plus(quote) ?: listOf(quote)
     }
+
+
+
 }
