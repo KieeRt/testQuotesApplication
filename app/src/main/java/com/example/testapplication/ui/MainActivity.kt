@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView(){
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
     }
+
     private fun initData(){
         model = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         println("MainActivity tag: ${model.tag}")
