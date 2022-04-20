@@ -15,7 +15,6 @@ data class Result(
     @ColumnInfo val dateAdded: String,
     @ColumnInfo val dateModified: String,
     @ColumnInfo val length: Int,
-    @TypeConverters(Converters::class)
     @ColumnInfo val tags: List<String>
 ){
     fun print(){
