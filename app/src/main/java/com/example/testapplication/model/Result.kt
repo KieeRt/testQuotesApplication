@@ -1,13 +1,18 @@
 package com.example.testapplication.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "result")
 data class Result(
-    val _id: String,
-    val author: String,
-    val authorSlug: String,
-    val content: String,
-    val dateAdded: String,
-    val dateModified: String,
-    val length: Int,
+    @PrimaryKey val _id: String,
+    @ColumnInfo val author: String,
+    @ColumnInfo val authorSlug: String,
+    @ColumnInfo val content: String,
+    @ColumnInfo val dateAdded: String,
+    @ColumnInfo val dateModified: String,
+    @ColumnInfo val length: Int,
     val tags: List<String>
 ){
     fun print(){

@@ -14,6 +14,8 @@ object QuoteRepository {
         return RetrofitPersonal.quotesApi.getQuotes().body()
     }
 
+    
+
 
 
 }

@@ -134,9 +134,15 @@ class savedQuotetFragment : Fragment() {
     )
     private fun initData(){
         model = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
+
+
+        /* Test for Room database */
+
         val db = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().
                 build()
         val userDao = db.userDao()
+
+        val database = AppDatabase.getDatabase(requireActivity().applicationContext)
 
         try{
             userDao.insertAll(users = users2)
@@ -149,7 +155,6 @@ class savedQuotetFragment : Fragment() {
 
 
 
-        /* Test for Room database */
     }
     private fun initListener(){}
 
