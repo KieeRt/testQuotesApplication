@@ -1,7 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
 }
+apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdk 32
@@ -83,7 +86,7 @@ dependencies {
 
     // ROOM database
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
 
 

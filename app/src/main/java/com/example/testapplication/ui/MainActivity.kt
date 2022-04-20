@@ -59,6 +59,8 @@ class MainActivity : AppCompatActivity() {
         model.tag = "main activity"
         println("MainActivity tag: ${model.tag}")
 
+
+
     }
     private fun initListener(){
 

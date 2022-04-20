@@ -14,11 +14,6 @@ object QuoteRepository {
         return RetrofitPersonal.quotesApi.getQuotes().body()
     }
 
-    fun getQuotesNotSuspend(): QuoteList?{
-        // 1. Check cache
-        //2. if there isn't file in cache, make request to api via Retrofit
-        return  RetrofitPersonal.getQuotesNotSuspend()
 
-    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.testapplication.ui
 
+import android.database.SQLException
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +11,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.testapplication.R
 import com.example.testapplication.adapter.RecyclerQuoteListAdapter
 import com.example.testapplication.adapter.RecyclerQuoteListNoSaveAdapter
 import com.example.testapplication.viewModel.MainActivityViewModel
 import com.example.testapplication.model.Result
+import com.example.testapplication.model.User
+import com.example.testapplication.roomdb.AppDatabase
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -93,11 +98,58 @@ class savedQuotetFragment : Fragment() {
 
     }
 
-
-
+    val users = listOf(
+        User(
+            1,
+            "dmytro",
+            "lozyak"
+        ),
+        User(
+            2,
+            "pingo",
+            "pingone"
+        ),
+        User(
+            3,
+            "pallino",
+            "pallone"
+        )
+    )
+    val users2 = arrayOf(
+        User(
+            1,
+            "dmytro",
+            "lozyak"
+        ),
+        User(
+            2,
+            "pingo",
+            "pingone"
+        ),
+        User(
+            3,
+            "pallino",
+            "pallone"
+        )
+    )
     private fun initData(){
         model = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
+        val db = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().
+                build()
+        val userDao = db.userDao()
 
+        try{
+            userDao.insertAll(users = users2)
+        }
+        catch (e: SQLException){
+            println(e.message)
+        }
+
+        val users: List<User> = userDao.getAll()
+
+
+
+        /* Test for Room database */
     }
     private fun initListener(){}
 
