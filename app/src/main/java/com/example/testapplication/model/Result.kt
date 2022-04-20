@@ -3,6 +3,8 @@ package com.example.testapplication.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.testapplication.roomdb.result.Converters
 
 @Entity(tableName = "result")
 data class Result(
@@ -13,7 +15,8 @@ data class Result(
     @ColumnInfo val dateAdded: String,
     @ColumnInfo val dateModified: String,
     @ColumnInfo val length: Int,
-    val tags: List<String>
+    @TypeConverters(Converters::class)
+    @ColumnInfo val tags: List<String>
 ){
     fun print(){
         println("_id:$_id")
