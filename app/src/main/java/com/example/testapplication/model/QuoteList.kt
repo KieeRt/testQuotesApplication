@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class QuoteList(
     @SerializedName("count")
-    val count2: Int,
+    val count: Int,
     val lastItemIndex: Int,
     val page: Int,
     val results: List<Result>,
