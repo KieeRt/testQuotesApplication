@@ -1,10 +1,11 @@
 package com.example.testapplication.roomdb.result
 
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
-
+@ProvidedTypeConverter
 class Converters {
     @TypeConverter
     fun fromString(value: String): List<String>? {

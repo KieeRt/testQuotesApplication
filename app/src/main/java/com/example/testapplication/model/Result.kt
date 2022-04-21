@@ -7,6 +7,7 @@ import androidx.room.TypeConverters
 import com.example.testapplication.roomdb.result.Converters
 
 @Entity(tableName = "result")
+@TypeConverters(Converters::class)
 data class Result(
     @PrimaryKey val _id: String,
     @ColumnInfo val author: String,

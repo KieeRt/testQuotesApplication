@@ -27,7 +27,7 @@ abstract class ResultDatabase : RoomDatabase() {
                     context.applicationContext,
                     ResultDatabase::class.java,
                     "database-name"
-                ).allowMainThreadQueries().addTypeConverter(Converters::class).build()
+                ).addTypeConverter(Converters()).allowMainThreadQueries().build()
                 INSTANCE = instance
                 // return instance
                 instance

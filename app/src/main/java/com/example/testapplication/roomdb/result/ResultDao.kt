@@ -7,5 +7,4 @@ import com.example.testapplication.model.Result
 interface ResultDao {
     @Query("SELECT * FROM result")
     fun getAll(): List<Result>
-
 }
