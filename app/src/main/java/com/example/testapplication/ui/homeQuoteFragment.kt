@@ -106,7 +106,7 @@ class homeQuoteFragment : Fragment() {
 
             // search clicked item inside my list
             var res: Result? = null
-            res =  model.getQuoteList().value?.results?.find {
+            res =  model.getQuoteList().value?.find {
                 it._id == tag
             }
 
@@ -120,8 +120,8 @@ class homeQuoteFragment : Fragment() {
 
         }
 
-        val quoteListObserver = Observer<QuoteList>{
-            val myAdapter = RecyclerQuoteListAdapter(requireContext(), model.getQuoteList().value!!.results, listener)
+        val quoteListObserver = Observer<List<Result>>{
+            val myAdapter = RecyclerQuoteListAdapter(requireContext(), model.getQuoteList().value!!, listener)
             recyclerView.adapter = myAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
 

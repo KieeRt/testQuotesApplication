@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.testapplication.R
 import com.example.testapplication.databinding.ActivityMainBinding
 import com.example.testapplication.model.QuoteList
+import com.example.testapplication.model.Result
 import com.example.testapplication.repository.QuoteRepository
 import com.example.testapplication.viewModel.MainActivityViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initObserver() {
 
-        val quoteListObserver = Observer<QuoteList>{
+        val quoteListObserver = Observer<List<Result>>{
         }
         model.getQuoteList().observe(this, quoteListObserver)
 
