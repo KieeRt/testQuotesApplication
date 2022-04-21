@@ -3,14 +3,11 @@ package com.example.testapplication.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.testapplication.model.QuoteList
 import com.example.testapplication.model.Result
 import com.example.testapplication.repository.QuoteRepository
 import com.example.testapplication.roomdb.result.ResultDao
 import com.example.testapplication.roomdb.result.ResultDatabase
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivityViewModel(application: Application): AndroidViewModel(application) {
@@ -32,6 +29,8 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
         GlobalScope.launch {
             resultList.postValue(quoteRepository.getResults(resultDao = resultDAO))
         }
+
+
     }
 
     fun saveQuote(quote: Result){
