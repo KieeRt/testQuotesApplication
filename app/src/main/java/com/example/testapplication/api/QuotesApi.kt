@@ -13,14 +13,12 @@ import retrofit2.http.Header
 
 
 interface QuotesApi {
-    @GET("stable/segnalazione")
-    fun getSegnalazioni(@Header("x-api-key") apiKey: String?): Call<User>
 
     @GET("/quotes")
     suspend fun getQuotes(): Response<QuoteList>
 
-    @GET("/quotes")
-    fun getQuotesNotSuspend(): Response<QuoteList>
+
+
 
 
 }

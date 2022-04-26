@@ -40,7 +40,6 @@ class RecyclerQuoteListAdapter(val context: Context, private val list: List<Resu
         }
 
         private fun setObserver(position: Int) {
-
             icon_item.setOnClickListener(listener)
             icon_item.setTag(R.string.id_saved_item, list[position]._id)
             val tag: String =  icon_item.getTag(R.string.id_saved_item).toString()

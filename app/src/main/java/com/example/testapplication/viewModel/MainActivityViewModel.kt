@@ -7,8 +7,7 @@ import com.example.testapplication.model.Result
 import com.example.testapplication.repository.QuoteRepository
 import com.example.testapplication.roomdb.result.ResultDao
 import com.example.testapplication.roomdb.result.ResultDatabase
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class MainActivityViewModel(application: Application): AndroidViewModel(application) {
     private val quoteRepository : QuoteRepository
@@ -26,11 +25,9 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     var tag : String = "new"
 
     fun getQuotes() {
-        GlobalScope.launch {
-            resultList.postValue(quoteRepository.getResults(resultDao = resultDAO))
+        var coroutineJob = CoroutineScope(Dispatchers.IO).launch {
+            resultList.postValue(QuoteRepository.getResults(resultDao = resultDAO))
         }
-
-
     }
 
     fun saveQuote(quote: Result){

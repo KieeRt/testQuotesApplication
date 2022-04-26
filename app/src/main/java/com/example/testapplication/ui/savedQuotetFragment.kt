@@ -98,63 +98,9 @@ class savedQuotetFragment : Fragment() {
 
     }
 
-    val users = listOf(
-        User(
-            1,
-            "dmytro",
-            "lozyak"
-        ),
-        User(
-            2,
-            "pingo",
-            "pingone"
-        ),
-        User(
-            3,
-            "pallino",
-            "pallone"
-        )
-    )
-    val users2 = arrayOf(
-        User(
-            1,
-            "dmytro",
-            "lozyak"
-        ),
-        User(
-            2,
-            "pingo",
-            "pingone"
-        ),
-        User(
-            3,
-            "pallino",
-            "pallone"
-        )
-    )
+
     private fun initData(){
         model = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
-
-
-        /* Test for Room database */
-
-        val db = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().
-                build()
-        val userDao = db.userDao()
-
-        val database = AppDatabase.getDatabase(requireActivity().applicationContext)
-
-        try{
-            userDao.insertAll(users = users2)
-        }
-        catch (e: SQLException){
-            println(e.message)
-        }
-
-        val users: List<User> = userDao.getAll()
-
-
-
     }
     private fun initListener(){}
 
