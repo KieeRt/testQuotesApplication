@@ -54,10 +54,9 @@ class homeQuoteFragment : Fragment() {
     ): View? {
 
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_homequote, container, false)
-        _view = binding.root
         init()
 
-        return _view
+        return binding.root
     }
 
     private fun init(){
@@ -139,8 +138,12 @@ class homeQuoteFragment : Fragment() {
 
 
     private fun initListener(){
-       binding.floatingActionButton.setOnClickListener(){
-            Navigation.findNavController(_view).navigate(R.id.action_second_to_savedQuotetFragment)
+        binding.apply {
+            floatingActionButton.setOnClickListener(){
+                Navigation.findNavController(binding.root).navigate(R.id.action_second_to_savedQuotetFragment)
+            }
+
+
         }
     }
 }
